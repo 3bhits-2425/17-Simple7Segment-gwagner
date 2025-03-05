@@ -3,13 +3,6 @@ using UnityEngine;
 
 public class SevenSegmentDisplay : MonoBehaviour
 {
-    void Start()
-    {
-        foreach (var segment in segments)
-        {
-            segment.rotation = Quaternion.Euler(0, 0, -90);
-        }
-    }
 
     public Transform[] segments;
     private readonly int[][] digitMap = new int[][]
@@ -25,6 +18,16 @@ public class SevenSegmentDisplay : MonoBehaviour
         new int[] {1, 1, 1, 1, 1, 1, 1}, // 8
         new int[] {1, 1, 1, 1, 0, 1, 1}  // 9
     };
+    public void Update()
+    {
+        for (int i = 0; i <= 9; i++)
+        {
+            if (Input.GetKeyDown(i.ToString()) || Input.GetKeyDown((KeyCode)((int)KeyCode.Keypad0 + i)))
+            {
+                SetNumber(i);
+            }
+        }
+    }
 
     public void SetNumber(int number)
     {
@@ -66,7 +69,7 @@ public class SevenSegmentDisplay : MonoBehaviour
         }
 
         float time = 0;
-        float duration = 0.5f;
+        float duration = 1f;
 
        
         while (time < duration)
