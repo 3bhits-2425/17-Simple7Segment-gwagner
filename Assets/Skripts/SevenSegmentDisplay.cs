@@ -18,7 +18,7 @@ public class SevenSegmentDisplay : MonoBehaviour
         new int[] {1, 1, 1, 1, 1, 1, 1}, // 8
         new int[] {1, 1, 1, 1, 0, 1, 1}  // 9
     };
-    public void Update()
+    private void Update()
     {
         for (int i = 0; i <= 9; i++)
         {
@@ -39,7 +39,7 @@ public class SevenSegmentDisplay : MonoBehaviour
 
             if (i == 0 || i == 3 || i == 6) //waagerechte Segmente
             {
-                segments[i].rotation = active ? Quaternion.Euler(0, 0, -90) : Quaternion.Euler(90, 0, 90);
+               segments[i].rotation = active ? Quaternion.Euler(0, 0, -90) : Quaternion.Euler(90, 0, 90);
             }
             else //senkrechte Segmente
             {
@@ -50,7 +50,7 @@ public class SevenSegmentDisplay : MonoBehaviour
 
 
 
-    private IEnumerator RotateSegment(Transform segment, bool active, Vector3 axis)
+    private void RotateSegment(Transform segment, bool active, Vector3 axis)
     {
         Quaternion startRotation = segment.rotation;
         Quaternion targetRotation;
@@ -76,7 +76,6 @@ public class SevenSegmentDisplay : MonoBehaviour
         {
             time += Time.deltaTime;
             segment.rotation = Quaternion.Lerp(startRotation, targetRotation, time / duration);
-            yield return null;
         }
         segment.rotation = targetRotation;
     }
